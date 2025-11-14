@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ustadz Maker - Nazril</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Background animation */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(0, 224, 255, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 224, 255, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 50% 50%, rgba(0, 224, 255, 0.05) 0%, transparent 20%);
+      z-index: -1;
+      animation: float 15s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 30px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      text-align: center;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 224, 255, 0.1), transparent);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .card:hover::before {
+      opacity: 1;
+    }
+    
+    h1 {
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: #00e0ff;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(0, 224, 255, 0.5);
+      letter-spacing: 0.5px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00e0ff, transparent);
+      border-radius: 2px;
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      border: none;
+      border-radius: 14px;
+      outline: none;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    input:focus {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 
+        inset 0 2px 5px rgba(0, 0, 0, 0.2),
+        0 0 0 2px rgba(0, 224, 255, 0.3);
+    }
+    
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #00e0ff, #00a8cc);
+      border: none;
+      border-radius: 14px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 5px 15px rgba(0, 224, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    button:hover {
+      background: linear-gradient(135deg, #00c8df, #0097b2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 224, 255, 0.4);
+    }
+    
+    button:hover::before {
+      left: 100%;
+    }
+    
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 10px rgba(0, 224, 255, 0.3);
+    }
+    
+    .download-btn {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+      display: none;
+    }
+    
+    .download-btn:hover {
+      background: linear-gradient(135deg, #43A047, #1B5E20);
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    .loading {
+      margin-top: 15px;
+      color: #aaa;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      min-height: 21px;
+    }
+    
+    .loading.active {
+      color: #00e0ff;
+      text-shadow: 0 0 5px rgba(0, 224, 255, 0.5);
+    }
+    
+    .loading-dots::after {
+      content: '';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+    
+    .result-container {
+      margin-top: 20px;
+      position: relative;
+    }
+    
+    img {
+      width: 100%;
+      border-radius: 18px;
+      display: none;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    img.loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .error-message {
+      color: #ff6b6b;
+      margin-top: 15px;
+      font-size: 14px;
+      padding: 10px;
+      background: rgba(255, 107, 107, 0.1);
+      border-radius: 10px;
+      border-left: 3px solid #ff6b6b;
+    }
+    
+    .success-message {
+      color: #4CAF50;
+      margin-top: 15px;
+      font-size: 14px;
+      padding: 10px;
+      background: rgba(76, 175, 80, 0.1);
+      border-radius: 10px;
+      border-left: 3px solid #4CAF50;
+      display: none;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .card {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      input, button {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ustadz Maker</h1>
+  		<h2>Author © Nazril - 2025 </h2>		
+    <div class="input-group">
+      <input type="text" id="textInput" placeholder="Masukkan teks (contoh: Yah bete gw)" />
+    </div>
+    <button onclick="generate()">Buat Gambar</button>
+    <button class="download-btn" id="downloadBtn" onclick="downloadImage()">Download Gambar</button>
+    <p class="loading" id="loadingText"></p>
+    <div class="result-container">
+      <img id="resultImage" alt="Hasil dari API">
+    </div>
+    <p class="success-message" id="successMessage">Gambar berhasil dibuat!</p>
+  </div>
+
+  <script>
+    let currentImageUrl = '';
+    
+    async function generate() {
+      const text = document.getElementById("textInput").value.trim();
+      const loadingText = document.getElementById("loadingText");
+      const resultImage = document.getElementById("resultImage");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const successMessage = document.getElementById("successMessage");
+
+      if (!text) {
+        showError("Masukkan teks terlebih dahulu!");
+        return;
+      }
+
+      // Reset previous state
+      resultImage.style.display = "none";
+      resultImage.classList.remove("loaded");
+      downloadBtn.style.display = "none";
+      successMessage.style.display = "none";
+      clearError();
+      
+      // Show loading state
+      loadingText.textContent = "Sedang memproses";
+      loadingText.classList.add("active", "loading-dots");
+
+      try {
+        const apiUrl = `https://api.zenzxz.my.id/api/maker/ustadz2?text=${encodeURIComponent(text)}`;
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data dari API");
+        }
+
+        // If the result is a direct image (like image link)
+        const blob = await response.blob();
+        currentImageUrl = URL.createObjectURL(blob);
+
+        // Wait for image to load before showing
+        resultImage.onload = function() {
+          loadingText.textContent = "";
+          loadingText.classList.remove("active", "loading-dots");
+          resultImage.style.display = "block";
+          downloadBtn.style.display = "block";
+          successMessage.style.display = "block";
+          
+          // Add loaded class after a small delay to trigger animation
+          setTimeout(() => {
+            resultImage.classList.add("loaded");
+          }, 50);
+        };
+        
+        resultImage.src = currentImageUrl;
+      } catch (err) {
+        loadingText.textContent = "";
+        loadingText.classList.remove("active", "loading-dots");
+        showError("Terjadi kesalahan: " + err.message);
+      }
+    }
+    
+    function downloadImage() {
+      if (!currentImageUrl) {
+        showError("Tidak ada gambar untuk diunduh");
+        return;
+      }
+      
+      const downloadLink = document.createElement('a');
+      downloadLink.href = currentImageUrl;
+      downloadLink.download = 'ustadz2-maker-image.png';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      
+      // Show download success feedback
+      const originalText = downloadBtn.textContent;
+      downloadBtn.textContent = "Berhasil Diunduh!";
+      downloadBtn.style.background = "linear-gradient(135deg, #2E7D32, #1B5E20)";
+      
+      setTimeout(() => {
+        downloadBtn.textContent = originalText;
+        downloadBtn.style.background = "linear-gradient(135deg, #4CAF50, #2E7D32)";
+      }, 2000);
+    }
+    
+    function showError(message) {
+      clearError();
+      const errorElement = document.createElement("div");
+      errorElement.className = "error-message";
+      errorElement.textContent = message;
+      document.querySelector(".card").appendChild(errorElement);
+    }
+    
+    function clearError() {
+      const existingError = document.querySelector(".error-message");
+      if (existingError) {
+        existingError.remove();
+      }
+    }
+    
+    // Allow pressing Enter to submit
+    document.getElementById("textInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        generate();
+      }
+    });
+  </script>
+</body>
+</html>
